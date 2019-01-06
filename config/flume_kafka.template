@@ -1,0 +1,28 @@
+
+a1.sources = r1
+a1.sinks = sample sample-log
+a1.channels = sample-channel sample-channel-log
+
+a1.sources.r1.type = exec
+a1.sources.r1.command = tail -f input.txt
+a1.sources.r1.logStdErr = true
+
+a1.channels.sample-channel.type = memory
+a1.channels.sample-channel.capacity = 1000
+a1.channels.sample-channel.transactionCapacity = 100
+a1.channels.sample-channel-log.type = memory
+a1.channels.sample-channel-log.capacity = 1000
+a1.channels.sample-channel-log.transactionCapacity = 100
+
+a1.sources.r1.channels.selector.type = replicating
+a1.sources.r1.channels = sample-channel sample-channel-log
+
+a1.sinks.sample.type = org.apache.flume.sink.kafka.KafkaSink
+a1.sinks.sample.topic = firsttopic
+a1.sinks.sample.brokerList = localhost:9092
+a1.sinks.sample.requiredAcks = 1
+a1.sinks.sample.batchSize = 5
+a1.sinks.sample.channel = sample-channel
+
+a1.sinks.sample-log.type = logger
+a1.sinks.sample-log.channel = sample-channel-log

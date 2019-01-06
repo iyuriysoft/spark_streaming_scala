@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "start zookeeper..."
 $KAFKA_HOME/bin/zookeeper-server-start.sh -daemon $KAFKA_HOME/config/zookeeper.properties &# > zookeeper.log 2>&1 &
 

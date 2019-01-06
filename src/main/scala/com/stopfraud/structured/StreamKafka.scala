@@ -14,6 +14,16 @@ import org.apache.spark.sql.types.StructType
 import com.stopfraud.common.AnalyseFraud
 import com.stopfraud.common.UsefulFuncs
 
+// 300 s stream output looks like that:
+//+-------------------+-------------------+----------+-------+---+------------------+----------+-----------+
+//|2019-01-06 12:53:00|2019-01-06 12:51:00|172.20.0.1|20     |60 |4.0               |1546768380|1546768260 |
+//|2019-01-06 12:53:00|2019-01-06 12:51:00|172.20.0.0|19     |60 |3.0               |1546768380|1546768260 |
+//|2019-01-06 12:52:00|2019-01-06 12:50:00|172.20.0.1|19     |60 |4.0               |1546768320|1546768200 |
+//|2019-01-06 12:52:00|2019-01-06 12:50:00|172.20.0.0|19     |60 |4.454545454545454 |1546768320|1546768200 |
+//|2019-01-06 12:51:00|2019-01-06 12:49:00|172.20.0.1|19     |60 |3.6153846153846154|1546768260|1546768140 |
+//|2019-01-06 12:51:00|2019-01-06 12:49:00|172.20.0.0|20     |60 |4.454545454545454 |1546768260|1546768140 |
+//+-------------------+-------------------+----------+-------+---+------------------+----------+-----------+
+
 object StreamKafka {
   private final val WAITING_IN_SEC = 60;
   private final val WIN_WATERMARK_IN_SEC = 300;
@@ -44,7 +54,7 @@ object StreamKafka {
     startJobKafka(spark, AnalyseFraud.getInputSchema(), brokers, topics)
     spark.stop()
   }
-  
+
   private def startJobKafka(spark: SparkSession, schema: StructType,
     brokers: String, topics: String): Unit = {
 
