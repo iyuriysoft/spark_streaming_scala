@@ -1,3 +1,4 @@
+#!/bin/python3
 '''
 real-time generator
 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--bots',     type=int, default=2,    help="number of bots")
     parser.add_argument('-u', '--users',    type=int, default=1000, help="number of users")
-    parser.add_argument('-d', '--duration', type=int, default=10,   help="log duration in sec")
+    parser.add_argument('-d', '--duration', type=int, default=300,   help="log duration in sec")
     parser.add_argument('-n', '--freq',     type=int, default=10,   help="number of user's requests in sec")
     parser.add_argument('-f', '--file',     type=str, default="input.txt",   help="write to file")
     args = parser.parse_args()
