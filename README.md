@@ -36,3 +36,6 @@ To generate data start botgen_rt.py with default parameters that will put data e
 ```
 
 3. Start StreamKafka.scala
+```
+$SPARK_HOME/bin/spark-submit --class "com.stopfraud.structured.StreamKafka" --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0 "target/scala-2.11/stopfraud_2.11-0.1.jar"
+```
